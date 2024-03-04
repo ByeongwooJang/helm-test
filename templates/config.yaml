@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/component: connaisseur-core
-    {{- include "helm.labels" . | nindent 4 }}
+    {{- include "qa-gwce-gasp-bw.labels" . | nindent 4 }}
 data:
   config.yaml: |
     validators:
