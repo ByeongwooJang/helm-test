@@ -10,6 +10,27 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "1.0.0"
 
+validators:
+  # static validator that allows each image
+  - name: allow
+    type: static
+    approve: true
+  # static validator that denies each image
+  - name: deny
+    type: static
+    approve: false
+  # the `default` validator is used if no validator is specified in image policy
+  - name: custom-validator
+    type: cosign # or other supported validator (e.g. "cosign")
+    trust_roots:
+    - name: ghcr
+      key: k8s://image-sign/cosignkey
+policy:
+  - pattern: "1000322/*:*"
+    validator: custom-validator
+    with:
+      trust_root: ghcr
+
 strategy:
   canary:
     maxSurge: "25%"
